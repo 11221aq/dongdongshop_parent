@@ -48,11 +48,7 @@
 
 
     <!--  设定反向生成的表 -->
-    <table tableName="tb_brand"></table>
-    <table tableName="tb_specification"></table>
-    <table tableName="tb_specification_option"></table>
-    <table tableName="tb_type_template"></table>
-    <table tableName="tb_item_cat"></table>
+    <table tableName="tb_seller"></table>
 
   </context>
 </generatorConfiguration>
