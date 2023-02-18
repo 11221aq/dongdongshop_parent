@@ -3,9 +3,7 @@ package com.dongdongshop.controller;
 import com.dongdongshop.data.Result;
 import com.dongdongshop.em.ResultEnum;
 import com.dongdongshop.service.SellerService;
-import com.dongdongshop.util.PageUtil;
 import com.dongdongshop.vo.SellerVO;
-import com.dongdongshop.vo.TbSpecificationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

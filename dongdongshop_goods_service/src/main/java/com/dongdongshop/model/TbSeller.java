@@ -51,6 +51,8 @@ public class TbSeller {
 
     private String bankName;
 
+    private Integer bankAccount;
+
     public String getSellerId() {
         return sellerId;
     }
@@ -241,5 +243,13 @@ public class TbSeller {
 
     public void setBankName(String bankName) {
         this.bankName = bankName == null ? null : bankName.trim();
+    }
+
+    public Integer getBankAccount() {
+        return bankAccount;
+    }
+
+    public void setBankAccount(Integer bankAccount) {
+        this.bankAccount = bankAccount;
     }
 }

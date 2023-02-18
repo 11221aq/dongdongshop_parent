@@ -1,6 +1,5 @@
 package com.dongdongshop.service.impl;
 
-import com.dongdongshop.data.Result;
 import com.dongdongshop.mapper.TbSellerMapper;
 import com.dongdongshop.model.TbSeller;
 import com.dongdongshop.model.TbSellerExample;
@@ -9,8 +8,6 @@ import com.dongdongshop.vo.SellerVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import java.util.List;

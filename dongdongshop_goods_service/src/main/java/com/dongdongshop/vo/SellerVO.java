@@ -59,4 +59,6 @@ public class SellerVO {
 
     private String bankName;//开户行
 
+    private Integer bankAccount;
+
 }
