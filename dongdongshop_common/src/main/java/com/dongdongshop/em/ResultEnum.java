@@ -8,6 +8,7 @@ public enum ResultEnum {
     LOGIN_ERROR(10004, "密码或用户名错误"),
     NOT_LOGIN(10005, "用户未登录"),
     INVALID_TOKEN(10006, "无效的Token"),
+    TO_BE_REVIEWED(10007, "账户待审核"),
     ;
 
     private Integer code;

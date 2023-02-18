@@ -4,6 +4,7 @@ import com.dongdongshop.mapper.TbSellerMapper;
 import com.dongdongshop.model.TbSeller;
 import com.dongdongshop.model.TbSellerExample;
 import com.dongdongshop.service.SellerService;
+import com.dongdongshop.util.ShiroUtils;
 import com.dongdongshop.vo.SellerVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -73,16 +74,29 @@ public class SellerServiceImpl implements SellerService {
         }
     }
 
+    /*                           验证是否存在id                                     */
+
     @Override
     public boolean checkName(String sellerId) {
         TbSeller tbSeller = sellerMapper.selectByPrimaryKey(sellerId);
         return tbSeller == null ? true : false;
     }
 
+    //增加
     @Override
     public void addSeller(SellerVO sellerVO) {
         TbSeller seller = new TbSeller();
         BeanUtils.copyProperties(sellerVO,seller);
+        String md5 = ShiroUtils.encryptPassword("MD5", seller.getPassword(), seller.getLegalPersonCardId(), 10);
+        seller.setPassword(md5);
         sellerMapper.insertSelective(seller);
+    }
+
+    @Override
+    public TbSeller getSellerByName(String username) {
+        TbSellerExample example = new TbSellerExample();
+        example.createCriteria().andSellerIdEqualTo(username);
+        List<TbSeller> tbSellers = sellerMapper.selectByExample(example);
+        return (tbSellers.isEmpty() || tbSellers == null) ? null : tbSellers.get(0);
     }
 }
