@@ -10,4 +10,8 @@ public interface SellerService {
     SellerVO getSellerById(String sellerId);
 
     void updateStatus(SellerVO sellerVO);
+
+    boolean checkName(String sellerId);
+
+    void addSeller(SellerVO sellerVO);
 }

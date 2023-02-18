@@ -11,6 +11,7 @@ import java.util.Date;
 @Data
 public class SellerVO {
     private String sellerId;//用户id
+
     private Integer statusId;
 
     private String name;//公司名字

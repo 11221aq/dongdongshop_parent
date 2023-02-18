@@ -15,6 +15,7 @@
         <module>dongdongshop_api_gateway</module>
         <module>dongdongshop_login_service</module>
         <module>dongdongshop_goods_service</module>
+        <module>dongdongshop_seller_service</module>
     </modules>
 
 

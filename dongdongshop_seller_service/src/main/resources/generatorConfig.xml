@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <!--声明 mysql 驱动包位置-->
+    <classPathEntry location="E:\maven\mysql\mysql-connector-java\5.1.18\mysql-connector-java-5.1.18.jar"/>
+
+
+   <context id="DB2Tables" targetRuntime="MyBatis3">
+   
+   <commentGenerator>
+     <property name="suppressAllComments" value="true"></property>   
+   </commentGenerator>
+  
+  
+    <!-- 设定数据库连接 -->
+    <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+        connectionURL="jdbc:mysql://localhost:3306/dongdongshop"
+        userId="root"
+        password="1234">
+    </jdbcConnection>
+    
+    
+
+    <javaTypeResolver >
+      <property name="forceBigDecimals" value="false" />
+    </javaTypeResolver>
+
+
+    <!--  生成 bean 存放的位置 model  -->
+    <javaModelGenerator targetPackage="com.dongdongshop.model" targetProject="./src/main/java">
+      <property name="enableSubPackages" value="true" />
+      <property name="trimStrings" value="true" />
+    </javaModelGenerator>
+
+    <!-- 生成的mapper.xml文件的位置 -->
+    <sqlMapGenerator targetPackage="mapper"  targetProject="./src/main/resources/mybatis">
+      <property name="enableSubPackages" value="true" />
+    </sqlMapGenerator>
+
+    <!-- 生成的mapper.xml 对应的那个mapper接口的存放位置  -->
+    <javaClientGenerator type="XMLMAPPER" targetPackage="com.dongdongshop.mapper" targetProject="./src/main/java">
+      <property name="enableSubPackages" value="true" />
+    </javaClientGenerator>
+
+
+    <!--  设定反向生成的表 -->
+    <table tableName="tb_seller"></table>
+
+  </context>
+</generatorConfiguration>

@@ -49,4 +49,28 @@ public class SellerController {
         }
     }
 
+    //判断是否存在名字id
+
+    @GetMapping("checkName")
+    public Result checkName(@RequestParam String sellerId){
+        try {
+            boolean b = sellerService.checkName(sellerId);
+            return Result.ok().setData(b);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e);
+        }
+    }
+
+    @PostMapping("addSeller")
+    public Result addSeller(@RequestBody SellerVO sellerVO){
+        try {
+            sellerService.addSeller(sellerVO);
+            return Result.ok();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e);
+        }
+    }
+
 }

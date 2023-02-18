@@ -72,4 +72,17 @@ public class SellerServiceImpl implements SellerService {
             sellerMapper.updateByPrimaryKeySelective(tbSeller);
         }
     }
+
+    @Override
+    public boolean checkName(String sellerId) {
+        TbSeller tbSeller = sellerMapper.selectByPrimaryKey(sellerId);
+        return tbSeller == null ? true : false;
+    }
+
+    @Override
+    public void addSeller(SellerVO sellerVO) {
+        TbSeller seller = new TbSeller();
+        BeanUtils.copyProperties(sellerVO,seller);
+        sellerMapper.insertSelective(seller);
+    }
 }
