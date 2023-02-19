@@ -17,4 +17,5 @@ public interface SellerService {
     void addSeller(SellerVO sellerVO);
 
     TbSeller getSellerByName(String username);
+
 }

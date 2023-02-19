@@ -11,5 +11,22 @@
 
     <artifactId>dongdongshop_service_api</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.dongdongshop</groupId>
+            <artifactId>dongdongshop_common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
