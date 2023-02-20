@@ -4,6 +4,7 @@ import com.dongdongshop.util.PageParms;
 import com.dongdongshop.util.PageUtil;
 import com.dongdongshop.vo.TbItemCatVO;
 
+import java.util.List;
 import java.util.Set;
 
 public interface ItemService {
@@ -18,4 +19,6 @@ public interface ItemService {
     void updateItem(TbItemCatVO itemCatVO);
 
     void deleteAll(Long[] ids);
+
+    List<TbItemCatVO> getItem(Long parentId);
 }

@@ -97,4 +97,21 @@ public class ItemServiceImpl implements ItemService {
         example.createCriteria().andIdIn(Arrays.asList(ids));
         itemCatMapper.deleteByExample(example);
     }
+
+    @Override
+    public List<TbItemCatVO> getItem(Long parentId) {
+        TbItemCatExample example = new TbItemCatExample();
+        example.createCriteria().andParentIdEqualTo(parentId);
+        List<TbItemCat> catList = itemCatMapper.selectByExample(example);
+        List<TbItemCatVO> collect = catList.stream().map(c -> {
+            TbItemCatVO vo = new TbItemCatVO();
+            vo.setParentId(c.getParentId());
+            vo.setId(c.getId());
+            vo.setName(c.getName());
+            vo.setTypeId(c.getTypeId());
+//            vo.setTypeName(typeMapper.selectByPrimaryKey(c.getTypeId()).getName());
+            return vo;
+        }).collect(Collectors.toList());
+        return collect;
+    }
 }

@@ -48,7 +48,8 @@
 
 
     <!--  设定反向生成的表 -->
-    <table tableName="tb_seller"></table>
+    <table tableName="tb_goods"></table>
+    <table tableName="tb_goods_desc"></table>
 
   </context>
 </generatorConfiguration>

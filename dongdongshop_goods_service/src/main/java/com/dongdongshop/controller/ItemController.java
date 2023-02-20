@@ -9,7 +9,7 @@ import com.dongdongshop.vo.TbItemCatVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -24,6 +24,17 @@ public class ItemController {
         try {
             PageUtil<TbItemCatVO> page = itemService.getItemList(parms);
             return Result.ok().setData(page);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e);
+        }
+    }
+
+    @PostMapping("getItem")
+    public Result getItem(@RequestParam Long parentId){
+        try {
+            List<TbItemCatVO> list = itemService.getItem(parentId);
+            return Result.ok().setData(list);
         }catch (Exception e){
             e.printStackTrace();
             return Result.result(ResultEnum.ERROR).setData(e);

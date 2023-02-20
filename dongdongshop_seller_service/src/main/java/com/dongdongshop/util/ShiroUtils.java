@@ -1,5 +1,6 @@
 package com.dongdongshop.util;
 
+
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 
