@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class JwtUtil {
     private String key = "dongke";
-    private long ttl = 1000 * 60;
+    private long ttl = 1000 * 60 * 60 * 24 * 30;
 
     /**
      * 生成jwt

@@ -1,4 +1,4 @@
-package com.dongdongshop.vo;
+package com.dongdongshop.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,8 +8,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class UserVo {
-    private Integer uid;
-    private String uname;
-    private String upwd;
-
+    private String username;
+    private String userId;
 }

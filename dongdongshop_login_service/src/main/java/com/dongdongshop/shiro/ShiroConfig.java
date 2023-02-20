@@ -1,11 +1,15 @@
 package com.dongdongshop.shiro;
 
+import com.dongdongshop.util.JwtUtil;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Configuration
 public class ShiroConfig {
@@ -15,6 +19,20 @@ public class ShiroConfig {
         ShiroFilterFactoryBean bean = new ShiroFilterFactoryBean();
         //引入安全管理器
         bean.setSecurityManager(defaultWebSecurityManager);
+        //设置拦截器
+        Map<String, String> map = new LinkedHashMap<>();
+        //先放过登录
+        map.put("/login","anon");
+        map.put("/login/sellerLogin","anon");
+        //设置退出登录
+        map.put("/logout","logout");
+        //拦截所有
+        map.put("/**","authc");
+        bean.setFilterChainDefinitionMap(map);
+        //设置登录页面
+        bean.setLoginUrl("/toLogin");
+        //设置权限不足页面
+        bean.setUnauthorizedUrl("/unauthorized");
         return bean;
     }
 
@@ -39,6 +57,11 @@ public class ShiroConfig {
         matcher.setHashIterations(10);
         matcher.setStoredCredentialsHexEncoded(true);
         return matcher;
+    }
+
+    @Bean
+    public JwtUtil jwtUtil(){
+        return new JwtUtil();
     }
 
 }
