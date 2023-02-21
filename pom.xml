@@ -16,6 +16,8 @@
         <module>dongdongshop_login_service</module>
         <module>dongdongshop_goods_service</module>
         <module>dongdongshop_seller_service</module>
+        <module>dongdongshop_file_service</module>
+        <module>dongdongshop_content_service</module>
     </modules>
 
 

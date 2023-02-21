@@ -48,7 +48,8 @@
 
 
     <!--  设定反向生成的表 -->
-    <table tableName="tb_item"></table>
+    <table tableName="tb_content"></table>
+    <table tableName="tb_content_category"></table>
 
   </context>
 </generatorConfiguration>
