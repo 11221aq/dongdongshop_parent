@@ -18,6 +18,7 @@
         <module>dongdongshop_seller_service</module>
         <module>dongdongshop_file_service</module>
         <module>dongdongshop_content_service</module>
+        <module>dongdongshop_freemarker_service</module>
     </modules>
 
 

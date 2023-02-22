@@ -1,12 +1,16 @@
 package com.dongdongshop.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.dongdongshop.mapper.TbContentMapper;
 import com.dongdongshop.model.TbContent;
 import com.dongdongshop.model.TbContentExample;
 import com.dongdongshop.service.ContentService;
 import com.dongdongshop.vo.ContentStatusVO;
 import com.dongdongshop.vo.ContentVO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,6 +23,9 @@ public class ContentServiceImpl implements ContentService {
 
     @Resource
     private TbContentMapper contentMapper;
+
+    @Resource
+    private RedisTemplate redisTemplate;
 
     @Override
     public List<ContentVO> getContentList() {
@@ -38,6 +45,7 @@ public class ContentServiceImpl implements ContentService {
         TbContent content = new TbContent();
         BeanUtils.copyProperties(contentVO, content);
         contentMapper.insertSelective(content);
+        redisTemplate.delete("count");
     }
 
     @Override
@@ -53,6 +61,7 @@ public class ContentServiceImpl implements ContentService {
         TbContent content = new TbContent();
         BeanUtils.copyProperties(contentVO, content);
         contentMapper.updateByPrimaryKeySelective(content);
+        redisTemplate.delete("count");
     }
 
     @Override
@@ -60,6 +69,7 @@ public class ContentServiceImpl implements ContentService {
         TbContentExample example = new TbContentExample();
         example.createCriteria().andIdIn(Arrays.asList(ids));
         contentMapper.deleteByExample(example);
+        redisTemplate.delete("count");
     }
 
     @Override
@@ -73,19 +83,28 @@ public class ContentServiceImpl implements ContentService {
             }
             contentMapper.updateByPrimaryKeySelective(tbContent);
         }
+        redisTemplate.delete("count");
     }
 
     @Override
     public List<ContentVO> getContentImage(Long categoryId) {
+        String str = (String)redisTemplate.boundHashOps("content").get("image_" + categoryId);
+        if(StringUtils.isNotBlank(str)){
+            List<ContentVO> contentVOList = JSONObject.parseArray(str, ContentVO.class);
+            return contentVOList;
+        }
         TbContentExample example = new TbContentExample();
         example.setOrderByClause("sort_order asc");
-        example.createCriteria().andCategoryIdEqualTo(categoryId);
+        TbContentExample.Criteria criteria = example.createCriteria();
+        criteria.andCategoryIdEqualTo(categoryId);
+        criteria.andStatusEqualTo("1");
         List<TbContent> tbContents = contentMapper.selectByExample(example);
         List<ContentVO> collect = tbContents.stream().map(c -> {
             ContentVO vo = new ContentVO();
             BeanUtils.copyProperties(c, vo);
             return vo;
         }).collect(Collectors.toList());
+        redisTemplate.boundHashOps("content").put("image_" + categoryId, JSONObject.toJSONString(collect));
         return collect;
     }
 }
