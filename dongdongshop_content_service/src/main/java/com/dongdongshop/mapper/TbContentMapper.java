@@ -27,4 +27,5 @@ public interface TbContentMapper {
     int updateByPrimaryKeySelective(TbContent record);
 
     int updateByPrimaryKey(TbContent record);
+
 }
