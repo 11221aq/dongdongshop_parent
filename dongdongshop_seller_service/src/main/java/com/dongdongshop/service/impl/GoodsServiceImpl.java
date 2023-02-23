@@ -5,10 +5,7 @@ import com.dongdongshop.data.UserVo;
 import com.dongdongshop.mapper.TbGoodsDescMapper;
 import com.dongdongshop.mapper.TbGoodsMapper;
 import com.dongdongshop.mapper.TbItemMapper;
-import com.dongdongshop.model.TbGoods;
-import com.dongdongshop.model.TbGoodsDesc;
-import com.dongdongshop.model.TbGoodsExample;
-import com.dongdongshop.model.TbItem;
+import com.dongdongshop.model.*;
 import com.dongdongshop.service.GoodsService;
 import com.dongdongshop.util.JwtUtil;
 import com.dongdongshop.util.PageParms;
@@ -118,5 +115,36 @@ public class GoodsServiceImpl implements GoodsService {
             }
 
         }
+    }
+
+
+
+    /*----------------详情页信息-------------------*/
+
+    @Override
+    public GoodsVO getGoodsById(Long goodsId) {
+        //根据id查询商品信息
+        TbGoods tbGoods = goodsMapper.selectByPrimaryKey(goodsId);
+        GoodsVO goodsVO = new GoodsVO();
+        BeanUtils.copyProperties(tbGoods, goodsVO);
+
+        //根据id查询商品详细信息
+        TbGoodsDesc tbGoodsDesc = descMapper.selectByPrimaryKey(goodsId);
+        GoodsDescVO goodsDescVO = new GoodsDescVO();
+        BeanUtils.copyProperties(tbGoodsDesc, goodsDescVO);
+        goodsVO.setGoodsDescVO(goodsDescVO);
+
+        //根据商品id 查询对应规格信息
+        TbItemExample example = new TbItemExample();
+        example.createCriteria().andGoodsIdEqualTo(goodsId);
+        List<TbItem> tbItems = itemMapper.selectByExample(example);
+        List<ItemVO> itemVOList = tbItems.stream().map(tbItem -> {
+            ItemVO itemVO = new ItemVO();
+            BeanUtils.copyProperties(tbItem, itemVO);
+            return itemVO;
+        }).collect(Collectors.toList());
+        goodsVO.setItemVOList(itemVOList);
+
+        return goodsVO;
     }
 }

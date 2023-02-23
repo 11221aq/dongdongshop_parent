@@ -3,6 +3,8 @@ package com.dongdongshop.vo;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
+
 @Data
 public class GoodsVO {
     private Long id;
@@ -36,4 +38,11 @@ public class GoodsVO {
     private String isEnableSpec;
 
     private String isDelete;
+
+    /* -----------------以下为商品详情信息-------------------------*/
+    private GoodsDescVO goodsDescVO;
+
+    /* ============ 对应规格信息===============*/
+    private List<ItemVO> itemVOList;
+
 }

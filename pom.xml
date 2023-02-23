@@ -19,6 +19,7 @@
         <module>dongdongshop_file_service</module>
         <module>dongdongshop_content_service</module>
         <module>dongdongshop_freemarker_service</module>
+        <module>dongdongshop_api_getway7002</module>
     </modules>
 
 

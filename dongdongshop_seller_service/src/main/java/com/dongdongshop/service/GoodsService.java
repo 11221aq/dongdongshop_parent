@@ -6,6 +6,8 @@ import com.dongdongshop.vo.CommodityReviewVO;
 import com.dongdongshop.vo.GoodsVO;
 import com.dongdongshop.vo.SaveVO;
 
+import java.util.List;
+
 public interface GoodsService {
     void saveGoods(String zhuqifa,SaveVO saveVO);
 
@@ -14,4 +16,6 @@ public interface GoodsService {
     void deleteAll(Long[] ids);
 
     void updateGoods(CommodityReviewVO vo);
+
+    GoodsVO getGoodsById(Long goodsId);
 }

@@ -11,6 +11,8 @@ import com.dongdongshop.vo.SaveVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @RequestMapping("goods")
@@ -62,5 +64,18 @@ public class GoodsController {
             return Result.result(ResultEnum.ERROR).setData(e);
         }
     }
+
+
+    @PostMapping("getGoodsById")
+    public Result getGoodsById(@RequestParam Long goodsId){
+        try {
+            GoodsVO goodsVO = goodsService.getGoodsById(goodsId);
+            return Result.ok().setData(goodsVO);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e);
+        }
+    }
+
 
 }

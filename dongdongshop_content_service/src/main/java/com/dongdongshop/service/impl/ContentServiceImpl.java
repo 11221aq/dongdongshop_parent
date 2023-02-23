@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.dongdongshop.mapper.TbContentMapper;
 import com.dongdongshop.model.TbContent;
 import com.dongdongshop.model.TbContentExample;
+import com.dongdongshop.service.ContentCateGoryService;
 import com.dongdongshop.service.ContentService;
+import com.dongdongshop.vo.ContentCategoryVO;
 import com.dongdongshop.vo.ContentStatusVO;
 import com.dongdongshop.vo.ContentVO;
 import org.apache.commons.lang3.StringUtils;
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,16 +29,25 @@ public class ContentServiceImpl implements ContentService {
     private TbContentMapper contentMapper;
 
     @Resource
-    private RedisTemplate redisTemplate;
+    private ContentCateGoryService cateGoryService;
+
+    @Resource
+    private RedisTemplate<Object,Object> redisTemplate;
 
     @Override
     public List<ContentVO> getContentList() {
         TbContentExample example = new TbContentExample();
         example.setOrderByClause("sort_order asc");
         List<TbContent> tbContents = contentMapper.selectByExample(example);
+
+        List<ContentCategoryVO> list = cateGoryService.getContentList("");
+        Map<Long, List<ContentCategoryVO>> map= list.stream()
+                .collect(Collectors.groupingBy(ContentCategoryVO::getId));
+
         List<ContentVO> collect = tbContents.stream().map(c -> {
             ContentVO vo = new ContentVO();
             BeanUtils.copyProperties(c, vo);
+            vo.setCategoryName(map.get(c.getCategoryId()).get(0).getName());
             return vo;
         }).collect(Collectors.toList());
         return collect;
@@ -45,7 +58,8 @@ public class ContentServiceImpl implements ContentService {
         TbContent content = new TbContent();
         BeanUtils.copyProperties(contentVO, content);
         contentMapper.insertSelective(content);
-        redisTemplate.delete("count");
+        redisTemplate.delete("content");
+
     }
 
     @Override
@@ -61,7 +75,7 @@ public class ContentServiceImpl implements ContentService {
         TbContent content = new TbContent();
         BeanUtils.copyProperties(contentVO, content);
         contentMapper.updateByPrimaryKeySelective(content);
-        redisTemplate.delete("count");
+        redisTemplate.delete("content");
     }
 
     @Override
@@ -69,7 +83,7 @@ public class ContentServiceImpl implements ContentService {
         TbContentExample example = new TbContentExample();
         example.createCriteria().andIdIn(Arrays.asList(ids));
         contentMapper.deleteByExample(example);
-        redisTemplate.delete("count");
+        redisTemplate.delete("content");
     }
 
     @Override
@@ -83,7 +97,7 @@ public class ContentServiceImpl implements ContentService {
             }
             contentMapper.updateByPrimaryKeySelective(tbContent);
         }
-        redisTemplate.delete("count");
+        redisTemplate.delete("content");
     }
 
     @Override
