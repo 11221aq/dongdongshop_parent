@@ -102,6 +102,12 @@
             <version>1.4.0</version>
         </dependency>
 
+        <!--添加分布式事物seata-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -51,5 +51,6 @@ public class ItemVO {
     private String spec;
 
     private String seller;
-
+//减少的库存
+    private Integer updateNum;
 }

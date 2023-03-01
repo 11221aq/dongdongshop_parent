@@ -4,6 +4,7 @@ import com.dongdongshop.util.PageParms;
 import com.dongdongshop.util.PageUtil;
 import com.dongdongshop.vo.CommodityReviewVO;
 import com.dongdongshop.vo.GoodsVO;
+import com.dongdongshop.vo.ItemVO;
 import com.dongdongshop.vo.SaveVO;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface GoodsService {
     void updateGoods(CommodityReviewVO vo);
 
     GoodsVO getGoodsById(Long goodsId);
+
+    ItemVO getItemById(Long itemId);
 }

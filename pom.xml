@@ -18,11 +18,12 @@
         <module>dongdongshop_seller_service</module>
         <module>dongdongshop_file_service</module>
         <module>dongdongshop_content_service</module>
-        <module>dongdongshop_freemarker_service</module>
         <module>dongdongshop_api_getway7002</module>
         <module>dongdongshop_user_service</module>
         <module>dongdongshop_mq_service</module>
         <module>dongdongshop_user_login</module>
+        <module>dongdongshop_cart_service</module>
+        <module>dongdongshop_order_service</module>
     </modules>
 
 

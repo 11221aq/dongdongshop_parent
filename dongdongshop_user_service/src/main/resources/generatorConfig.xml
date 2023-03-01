@@ -48,7 +48,10 @@
 
 
     <!--  设定反向生成的表 -->
-    <table tableName="tb_user"></table>
+    <table tableName="tb_address"></table>
+    <table tableName="tb_provinces"></table>
+    <table tableName="tb_areas"></table>
+    <table tableName="tb_cities"></table>
 
   </context>
 </generatorConfiguration>

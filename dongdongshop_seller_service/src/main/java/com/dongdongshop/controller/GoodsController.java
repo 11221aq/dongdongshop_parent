@@ -7,6 +7,7 @@ import com.dongdongshop.util.PageParms;
 import com.dongdongshop.util.PageUtil;
 import com.dongdongshop.vo.CommodityReviewVO;
 import com.dongdongshop.vo.GoodsVO;
+import com.dongdongshop.vo.ItemVO;
 import com.dongdongshop.vo.SaveVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -71,6 +72,17 @@ public class GoodsController {
         try {
             GoodsVO goodsVO = goodsService.getGoodsById(goodsId);
             return Result.ok().setData(goodsVO);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e);
+        }
+    }
+
+    @PostMapping("getItemById")
+    public Result getItemById(@RequestParam Long itemId){
+        try {
+            ItemVO itemVO = goodsService.getItemById(itemId);
+            return Result.ok().setData(itemVO);
         }catch (Exception e){
             e.printStackTrace();
             return Result.result(ResultEnum.ERROR).setData(e);

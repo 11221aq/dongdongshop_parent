@@ -27,7 +27,7 @@ import java.util.Set;
 @RefreshScope
 public class TokenFilter implements GlobalFilter, Ordered {
 
-    @Value("#{'${gateway.exclusions.url}'.empty ? null : '${gateway.exclusions.url}'.split(',')}")
+    @Value("#{'${gateway.url}'.empty ? null : '${gateway.url}'.split(',')}")
     private Set<String> urls;
 
     @Autowired
@@ -43,22 +43,26 @@ public class TokenFilter implements GlobalFilter, Ordered {
 
         String path = request.getURI().getPath();
 
+        boolean flag = false;
+
         for (String eurl : urls) {
             if(pathMatcher.match(eurl, path)){
-                return chain.filter(exchange);
+                flag = true;
+                break;
             }
         }
 
-
-        String token = request.getHeaders().getFirst("zhuqifa");//获取请求头中的token
-        if(token == null || "".equals(token)){
-            return getVoidMono(exchange);
-        }
-        //如果token存在,检验token是否合法
-        try {
-            jwtUtil.parseJwt(token);
-        }catch (Exception e){
-            return getVoidMono(exchange);
+        if(flag){
+            String token = request.getHeaders().getFirst("zhuqifa");//获取请求头中的token
+            if(token == null || "".equals(token)){
+                return getVoidMono(exchange);
+            }
+            //如果token存在,检验token是否合法
+            try {
+                jwtUtil.parseJwt(token);
+            }catch (Exception e){
+                return getVoidMono(exchange);
+            }
         }
         return chain.filter(exchange);
     }

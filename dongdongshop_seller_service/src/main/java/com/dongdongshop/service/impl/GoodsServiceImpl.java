@@ -147,4 +147,13 @@ public class GoodsServiceImpl implements GoodsService {
 
         return goodsVO;
     }
+
+
+    @Override
+    public ItemVO getItemById(Long itemId) {
+        TbItem tbItem = itemMapper.selectByPrimaryKey(itemId);
+        ItemVO itemVO = new ItemVO();
+        BeanUtils.copyProperties(tbItem,itemVO);
+        return itemVO;
+    }
 }
