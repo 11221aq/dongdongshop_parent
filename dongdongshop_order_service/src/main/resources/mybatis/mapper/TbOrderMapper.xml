@@ -27,6 +27,8 @@
     <result column="invoice_type" property="invoiceType" jdbcType="VARCHAR" />
     <result column="source_type" property="sourceType" jdbcType="VARCHAR" />
     <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -90,7 +92,7 @@
     order_id, payment, payment_type, post_fee, status, create_time, update_time, payment_time, 
     consign_time, end_time, close_time, shipping_name, shipping_code, user_id, buyer_message, 
     buyer_nick, buyer_rate, receiver_area_name, receiver_mobile, receiver_zip_code, receiver, 
-    expire, invoice_type, source_type, seller_id
+    expire, invoice_type, source_type, seller_id, order_num, trade_no
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dongdongshop.model.TbOrderExample" >
     select
@@ -123,7 +125,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dongdongshop.model.TbOrder" >
-    insert into tb_order (order_id, payment, payment_type,
+    insert into tb_order (order_id, payment, payment_type, 
       post_fee, status, create_time, 
       update_time, payment_time, consign_time, 
       end_time, close_time, shipping_name, 
@@ -131,16 +133,18 @@
       buyer_nick, buyer_rate, receiver_area_name, 
       receiver_mobile, receiver_zip_code, receiver, 
       expire, invoice_type, source_type, 
-      seller_id)
+      seller_id, order_num, trade_no
+      )
     values (#{orderId,jdbcType=BIGINT}, #{payment,jdbcType=DECIMAL}, #{paymentType,jdbcType=VARCHAR}, 
       #{postFee,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{paymentTime,jdbcType=TIMESTAMP}, #{consignTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{shippingName,jdbcType=VARCHAR},
+      #{endTime,jdbcType=TIMESTAMP}, #{closeTime,jdbcType=TIMESTAMP}, #{shippingName,jdbcType=VARCHAR}, 
       #{shippingCode,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{buyerMessage,jdbcType=VARCHAR}, 
       #{buyerNick,jdbcType=VARCHAR}, #{buyerRate,jdbcType=VARCHAR}, #{receiverAreaName,jdbcType=VARCHAR}, 
       #{receiverMobile,jdbcType=VARCHAR}, #{receiverZipCode,jdbcType=VARCHAR}, #{receiver,jdbcType=VARCHAR}, 
       #{expire,jdbcType=TIMESTAMP}, #{invoiceType,jdbcType=VARCHAR}, #{sourceType,jdbcType=VARCHAR}, 
-      #{sellerId,jdbcType=VARCHAR})
+      #{sellerId,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, #{tradeNo,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.dongdongshop.model.TbOrder" >
     insert into tb_order
@@ -220,6 +224,12 @@
       <if test="sellerId != null" >
         seller_id,
       </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="orderId != null" >
@@ -296,6 +306,12 @@
       </if>
       <if test="sellerId != null" >
         #{sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -383,6 +399,12 @@
       <if test="record.sellerId != null" >
         seller_id = #{record.sellerId,jdbcType=VARCHAR},
       </if>
+      <if test="record.orderNum != null" >
+        order_num = #{record.orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeNo != null" >
+        trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -414,7 +436,9 @@
       expire = #{record.expire,jdbcType=TIMESTAMP},
       invoice_type = #{record.invoiceType,jdbcType=VARCHAR},
       source_type = #{record.sourceType,jdbcType=VARCHAR},
-      seller_id = #{record.sellerId,jdbcType=VARCHAR}
+      seller_id = #{record.sellerId,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=VARCHAR},
+      trade_no = #{record.tradeNo,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -494,6 +518,12 @@
       <if test="sellerId != null" >
         seller_id = #{sellerId,jdbcType=VARCHAR},
       </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
     </set>
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
@@ -522,7 +552,9 @@
       expire = #{expire,jdbcType=TIMESTAMP},
       invoice_type = #{invoiceType,jdbcType=VARCHAR},
       source_type = #{sourceType,jdbcType=VARCHAR},
-      seller_id = #{sellerId,jdbcType=VARCHAR}
+      seller_id = #{sellerId,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      trade_no = #{tradeNo,jdbcType=VARCHAR}
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
 
@@ -535,10 +567,11 @@
       buyer_nick, buyer_rate, receiver_area_name,
       receiver_mobile, receiver_zip_code, receiver,
       expire, invoice_type, source_type,
-      seller_id)
+      seller_id, order_num, trade_no
+      )
     values
     <foreach collection="orderList" item="order" separator=",">
-      (#{order.orderId,jdbcType=BIGINT}, #{order.payment,jdbcType=DECIMAL}, #{order.paymentType,jdbcType=VARCHAR},
+    (#{order.orderId,jdbcType=BIGINT}, #{order.payment,jdbcType=DECIMAL}, #{order.paymentType,jdbcType=VARCHAR},
       #{order.postFee,jdbcType=VARCHAR}, #{order.status,jdbcType=VARCHAR}, #{order.createTime,jdbcType=TIMESTAMP},
       #{order.updateTime,jdbcType=TIMESTAMP}, #{order.paymentTime,jdbcType=TIMESTAMP}, #{order.consignTime,jdbcType=TIMESTAMP},
       #{order.endTime,jdbcType=TIMESTAMP}, #{order.closeTime,jdbcType=TIMESTAMP}, #{order.shippingName,jdbcType=VARCHAR},
@@ -546,7 +579,8 @@
       #{order.buyerNick,jdbcType=VARCHAR}, #{order.buyerRate,jdbcType=VARCHAR}, #{order.receiverAreaName,jdbcType=VARCHAR},
       #{order.receiverMobile,jdbcType=VARCHAR}, #{order.receiverZipCode,jdbcType=VARCHAR}, #{order.receiver,jdbcType=VARCHAR},
       #{order.expire,jdbcType=TIMESTAMP}, #{order.invoiceType,jdbcType=VARCHAR}, #{order.sourceType,jdbcType=VARCHAR},
-      #{order.sellerId,jdbcType=VARCHAR})
+      #{order.sellerId,jdbcType=VARCHAR}, #{order.orderNum,jdbcType=VARCHAR}, #{order.tradeNo,jdbcType=VARCHAR}
+      )
     </foreach>
   </insert>
 

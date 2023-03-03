@@ -24,6 +24,7 @@
         <module>dongdongshop_user_login</module>
         <module>dongdongshop_cart_service</module>
         <module>dongdongshop_order_service</module>
+        <module>dongdongshop_trade_service</module>
     </modules>
 
 

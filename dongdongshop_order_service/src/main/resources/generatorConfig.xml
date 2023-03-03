@@ -18,7 +18,7 @@
   
     <!-- 设定数据库连接 -->
     <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-        connectionURL="jdbc:mysql://localhost:3306/dongdongshop"
+        connectionURL="jdbc:mysql://localhost:3306/dongdongshop_order"
         userId="root"
         password="1234">
     </jdbcConnection>

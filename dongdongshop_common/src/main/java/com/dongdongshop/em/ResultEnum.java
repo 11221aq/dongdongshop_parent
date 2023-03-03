@@ -9,6 +9,8 @@ public enum ResultEnum {
     NOT_LOGIN(10005, "用户未登录"),
     INVALID_TOKEN(10006, "无效的Token"),
     TO_BE_REVIEWED(10007, "账户待审核"),
+    REFUND_SUCCESS(10008, "退款成功"),
+    REFUND_ERROR(10009, "退款失败"),
     ;
 
     private Integer code;

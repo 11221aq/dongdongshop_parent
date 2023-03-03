@@ -54,6 +54,10 @@ public class TbOrder {
 
     private String sellerId;
 
+    private String orderNum;
+
+    private String tradeNo;
+
     public Long getOrderId() {
         return orderId;
     }
@@ -252,5 +256,21 @@ public class TbOrder {
 
     public void setSellerId(String sellerId) {
         this.sellerId = sellerId == null ? null : sellerId.trim();
+    }
+
+    public String getOrderNum() {
+        return orderNum;
+    }
+
+    public void setOrderNum(String orderNum) {
+        this.orderNum = orderNum == null ? null : orderNum.trim();
+    }
+
+    public String getTradeNo() {
+        return tradeNo;
+    }
+
+    public void setTradeNo(String tradeNo) {
+        this.tradeNo = tradeNo == null ? null : tradeNo.trim();
     }
 }

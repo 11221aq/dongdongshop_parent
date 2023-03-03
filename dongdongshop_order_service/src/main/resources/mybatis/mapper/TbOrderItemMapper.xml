@@ -12,6 +12,9 @@
     <result column="total_fee" property="totalFee" jdbcType="DECIMAL" />
     <result column="pic_path" property="picPath" jdbcType="VARCHAR" />
     <result column="seller_id" property="sellerId" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="VARCHAR" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -72,7 +75,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, item_id, goods_id, order_id, title, price, num, total_fee, pic_path, seller_id
+    id, item_id, goods_id, order_id, title, price, num, total_fee, pic_path, seller_id, 
+    order_num, trade_no, status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dongdongshop.model.TbOrderItemExample" >
     select
@@ -105,14 +109,16 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.dongdongshop.model.TbOrderItem" >
-    insert into tb_order_item (id, item_id, goods_id, 
-      order_id, title, price, 
-      num, total_fee, pic_path, 
-      seller_id)
-    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT}, 
-      #{orderId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
-      #{num,jdbcType=INTEGER}, #{totalFee,jdbcType=DECIMAL}, #{picPath,jdbcType=VARCHAR}, 
-      #{sellerId,jdbcType=VARCHAR})
+    insert into tb_order_item (id, item_id, goods_id,
+      order_id, title, price,
+      num, total_fee, pic_path,
+      seller_id, order_num, trade_no,
+      status)
+    values (#{id,jdbcType=BIGINT}, #{itemId,jdbcType=BIGINT}, #{goodsId,jdbcType=BIGINT},
+      #{orderId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL},
+      #{num,jdbcType=INTEGER}, #{totalFee,jdbcType=DECIMAL}, #{picPath,jdbcType=VARCHAR},
+      #{sellerId,jdbcType=VARCHAR}, #{orderNum,jdbcType=VARCHAR}, #{tradeNo,jdbcType=VARCHAR},
+      #{status,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.dongdongshop.model.TbOrderItem" >
     insert into tb_order_item
@@ -147,6 +153,15 @@
       <if test="sellerId != null" >
         seller_id,
       </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -178,6 +193,15 @@
       </if>
       <if test="sellerId != null" >
         #{sellerId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -220,6 +244,15 @@
       <if test="record.sellerId != null" >
         seller_id = #{record.sellerId,jdbcType=VARCHAR},
       </if>
+      <if test="record.orderNum != null" >
+        order_num = #{record.orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeNo != null" >
+        trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -236,7 +269,10 @@
       num = #{record.num,jdbcType=INTEGER},
       total_fee = #{record.totalFee,jdbcType=DECIMAL},
       pic_path = #{record.picPath,jdbcType=VARCHAR},
-      seller_id = #{record.sellerId,jdbcType=VARCHAR}
+      seller_id = #{record.sellerId,jdbcType=VARCHAR},
+      order_num = #{record.orderNum,jdbcType=VARCHAR},
+      trade_no = #{record.tradeNo,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -271,6 +307,15 @@
       <if test="sellerId != null" >
         seller_id = #{sellerId,jdbcType=VARCHAR},
       </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -284,22 +329,27 @@
       num = #{num,jdbcType=INTEGER},
       total_fee = #{totalFee,jdbcType=DECIMAL},
       pic_path = #{picPath,jdbcType=VARCHAR},
-      seller_id = #{sellerId,jdbcType=VARCHAR}
+      seller_id = #{sellerId,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=VARCHAR},
+      trade_no = #{tradeNo,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
-  
+
   <insert id="insertBath">
-    insert into tb_order_item (id, item_id, goods_id, 
-      order_id, title, price, 
-      num, total_fee, pic_path, 
-      seller_id)
-    values 
+    insert into tb_order_item (id, item_id, goods_id,
+      order_id, title, price,
+      num, total_fee, pic_path,
+      seller_id, order_num, trade_no,
+      status)
+    values
     <foreach collection="orderItemList" separator="," item="orderItem">
     (#{orderItem.id,jdbcType=BIGINT}, #{orderItem.itemId,jdbcType=BIGINT}, #{orderItem.goodsId,jdbcType=BIGINT},
       #{orderItem.orderId,jdbcType=BIGINT}, #{orderItem.title,jdbcType=VARCHAR}, #{orderItem.price,jdbcType=DECIMAL},
       #{orderItem.num,jdbcType=INTEGER}, #{orderItem.totalFee,jdbcType=DECIMAL}, #{orderItem.picPath,jdbcType=VARCHAR},
-      #{orderItem.sellerId,jdbcType=VARCHAR})
+      #{orderItem.sellerId,jdbcType=VARCHAR}, #{orderItem.orderNum,jdbcType=VARCHAR}, #{orderItem.tradeNo,jdbcType=VARCHAR},
+      #{orderItem.status,jdbcType=VARCHAR})
     </foreach>
   </insert>
-  
+
 </mapper>
