@@ -9,9 +9,10 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>dongdongshop_order_service</artifactId>
+    <artifactId>dongdongshop_seckill_service</artifactId>
 
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -36,13 +37,6 @@
             <version>5.1.41</version>
         </dependency>
 
-        <!-- pagehelper 分页-->
-        <dependency>
-            <groupId>com.github.pagehelper</groupId>
-            <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.4.2</version>
-        </dependency>
-
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
@@ -57,14 +51,14 @@
 
         <dependency>
             <groupId>com.dongdongshop</groupId>
-            <artifactId>dongdongshop_common</artifactId>
+            <artifactId>dongdongshop_service_api</artifactId>
             <version>1.0.0</version>
         </dependency>
 
+        <!--spring-boot整合redis-->
         <dependency>
-            <groupId>com.dongdongshop</groupId>
-            <artifactId>dongdongshop_service_api</artifactId>
-            <version>1.0.0</version>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <!--nacos注册中心依赖-->
@@ -93,18 +87,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
-        </dependency>
-
-        <!--添加分布式事物seata-->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
-        </dependency>
-
-        <!--spring-boot整合redis-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
 
         <!--sentinel-->

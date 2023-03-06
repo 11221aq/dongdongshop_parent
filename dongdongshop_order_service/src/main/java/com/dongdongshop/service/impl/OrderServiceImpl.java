@@ -73,6 +73,9 @@ public class OrderServiceImpl implements OrderService {
     public AlipayTradeVO submitOrder(String zhuqifa, Long addressId, String payType) {
         //根据用户的信息 从购物车系统获取购物车数据
         Result<List<CartDTO>> result = cartServiceApi.getCart(zhuqifa);
+        if(result.getCode() == 10001){
+            throw new RuntimeException("购物车为空");
+        }
         List<CartDTO> cartDTOList = result.getData();
         //获取当前登录的用户
         Claims claims = jwtUtil.parseJwt(zhuqifa);
@@ -229,21 +232,21 @@ public class OrderServiceImpl implements OrderService {
     public void getOrderById(Long id) {
         TbOrderItem item = orderItemMapper.selectByPrimaryKey(id);
         Result result = tradeServiceApi.tradeRefund(item.getTradeNo(), item.getTotalFee().toString(), item.getOrderNum());
-        if(Objects.equals(result.getCode(),"10008")){
+        if(Objects.equals(result.getCode(),10008)){
             item.setStatus("6");//退款成功
             orderItemMapper.updateByPrimaryKeySelective(item);
         }
         TbOrderItemExample example = new TbOrderItemExample();
-        example.createCriteria().andOrderIdEqualTo(item.getGoodsId());
+        example.createCriteria().andOrderIdEqualTo(item.getOrderId());
         List<TbOrderItem> tbOrderItems = orderItemMapper.selectByExample(example);
         boolean flag = false;
         for (TbOrderItem tbOrderItem : tbOrderItems) {
-            if(Objects.equals(tbOrderItem.getStatus(),"6")){
+            if(!Objects.equals(tbOrderItem.getStatus(),"6")){
                 flag=true;
                 break;
             }
         }
-        if(flag){
+        if(!flag){
             TbOrder order = orderMapper.selectByPrimaryKey(item.getOrderId());
             order.setStatus("6");
             orderMapper.updateByPrimaryKeySelective(order);

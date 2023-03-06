@@ -11,6 +11,8 @@ public enum ResultEnum {
     TO_BE_REVIEWED(10007, "账户待审核"),
     REFUND_SUCCESS(10008, "退款成功"),
     REFUND_ERROR(10009, "退款失败"),
+    MORE_REQUEST(10010, "活动火爆,请稍后再试"),
+    FALLBACK(10011, "触发降级"),
     ;
 
     private Integer code;

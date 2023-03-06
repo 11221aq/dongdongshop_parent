@@ -34,6 +34,10 @@ public class Result<T> {
     public Result() {
     }
 
+    public static Result fallback() {
+        return new Result(ResultEnum.MORE_REQUEST.getCode(),ResultEnum.MORE_REQUEST.getMessage());
+    }
+
     public Integer getCode() {
         return code;
     }
