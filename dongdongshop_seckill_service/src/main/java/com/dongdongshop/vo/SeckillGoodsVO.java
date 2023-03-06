@@ -1,6 +1,7 @@
 package com.dongdongshop.vo;
 
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -32,6 +33,7 @@ public class SeckillGoodsVO implements Serializable {
 
     private Date startTime;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date endTime;
 
     private Integer num;

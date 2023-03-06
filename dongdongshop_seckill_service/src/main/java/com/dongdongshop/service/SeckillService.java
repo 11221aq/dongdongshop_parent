@@ -8,4 +8,8 @@ public interface SeckillService {
     void cachePreHot();
 
     List<SeckillGoodsVO> getSeckillList();
+
+    SeckillGoodsVO getGoodsById(Long goodsId);
+
+    String submitSeckill(String userName ,Long goodsId);
 }

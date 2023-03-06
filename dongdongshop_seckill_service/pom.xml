@@ -95,6 +95,12 @@
             <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
         </dependency>
 
+        <!--sentinel持久化 采用 Nacos 作为规则配置数据源-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

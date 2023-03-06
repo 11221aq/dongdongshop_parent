@@ -39,7 +39,13 @@ public class JwtUtil {
      * @return
      */
     public Claims parseJwt(String jwtStr) {
-        return Jwts.parser().setSigningKey(key).parseClaimsJws(jwtStr).getBody();
+        Claims body = null;
+        try {
+            body = Jwts.parser().setSigningKey(key).parseClaimsJws(jwtStr).getBody();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return body;
     }
 
     public String getKey() {
