@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 public class PageParms<T> {
     private Integer pageNum;
     private Integer pageSize;
-    private T parms;
+    private String title;
 }

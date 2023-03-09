@@ -26,6 +26,7 @@
         <module>dongdongshop_order_service</module>
         <module>dongdongshop_trade_service</module>
         <module>dongdongshop_seckill_service</module>
+        <module>dongdongshop_search_service</module>
     </modules>
 
 
