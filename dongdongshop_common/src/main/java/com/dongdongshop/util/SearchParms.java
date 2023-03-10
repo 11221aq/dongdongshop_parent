@@ -6,5 +6,5 @@ import lombok.Data;
 public class SearchParms<T> {
     private Integer pageNum;
     private Integer pageSize;
-    private T parms;
+    private String title;
 }
