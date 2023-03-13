@@ -16,4 +16,7 @@ public class PageUtil<T> {
     private List<T> rows;
     private Integer pages;
     private Long page;
+
+    public PageUtil(int pageNum, int pageSize, long total, List<T> collect, int pages) {
+    }
 }

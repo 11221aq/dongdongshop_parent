@@ -51,4 +51,9 @@ public class UserServiceImpl implements UserService {
         List<TbUser> tbUsers = userMapper.selectByExample(example);
         return tbUsers == null || tbUsers.isEmpty() ? null : tbUsers.get(0);
     }
+
+    @Override
+    public void updateUser(TbUser user) {
+        userMapper.updateByPrimaryKeySelective(user);
+    }
 }

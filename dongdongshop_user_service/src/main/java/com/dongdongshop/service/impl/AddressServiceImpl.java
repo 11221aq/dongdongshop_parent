@@ -1,4 +1,4 @@
-package com.dongdongshop.service.impl.impl;
+package com.dongdongshop.service.impl;
 
 import com.dongdongshop.mapper.TbAddressMapper;
 import com.dongdongshop.model.TbAddress;

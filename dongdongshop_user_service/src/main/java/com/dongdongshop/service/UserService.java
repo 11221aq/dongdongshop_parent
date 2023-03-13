@@ -9,4 +9,6 @@ public interface UserService {
     Integer loginUser(UserLonginVO userVo);
 
     TbUser getUserByName(String username);
+
+    void updateUser(TbUser user);
 }

@@ -1,0 +1,18 @@
+server:
+  port: 8094
+
+spring:
+  application:
+    name: dongdongshop-httpclient-service
+  cloud:
+    nacos:
+      discovery: #注册中心地址
+        server-addr: 127.0.0.1:8848
+        #        注册
+        namespace: dongdongshop
+        group: DONGDONG
+      config:
+        server-addr: 127.0.0.1:8848
+        file-extension: yml #指定yml文件格式
+        namespace: dongdongshop
+        group: DONGDONG
