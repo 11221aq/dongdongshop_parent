@@ -93,10 +93,28 @@ public class SeckillServiceImpl implements SeckillService {
         long orderId = idWorker.nextId();
         order.setId(orderId);//id
         order.setMoney(goodsVO.getCostPrice());//售价
-        order.setSeckillId(goodsVO.getId());//秒��商品id
+        order.setSeckillId(goodsVO.getId());//秒杀商品id
         order.setStatus("1");//未支付
         order.setUserId(userName);
         orderMapper.insertSelective(order);
         return String.valueOf(orderId);
+    }
+
+    @Override
+    public void seckillJob() {
+        Date now = new Date();
+        TbSeckillGoodsExample example = new TbSeckillGoodsExample();
+        TbSeckillGoodsExample.Criteria criteria = example.createCriteria();
+        criteria.andStartTimeLessThanOrEqualTo(now);
+        criteria.andEndTimeGreaterThanOrEqualTo(now);
+        List<TbSeckillGoods> tbSeckillGoods = seckillGoodsMapper.selectByExample(example);
+        tbSeckillGoods.stream().map(g -> {
+            SeckillGoodsVO vo = new SeckillGoodsVO();
+            BeanUtils.copyProperties(g, vo);
+            return vo;
+        }).forEach(g -> {
+            redisTemplate.boundHashOps("seckillList").put(g.getId(), g);
+        });
+        System.out.println("预热成功" + new Date());
     }
 }

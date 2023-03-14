@@ -9,6 +9,7 @@ import com.dongdongshop.em.ResultEnum;
 import com.dongdongshop.service.SeckillService;
 import com.dongdongshop.util.JwtUtil;
 import com.dongdongshop.vo.SeckillGoodsVO;
+import com.xxl.job.core.handler.annotation.XxlJob;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,17 @@ public class SeckillController extends BaseController {
     public Result cachePreHot() {
         try {
             seckillService.cachePreHot();
+            return Result.ok();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e);
+        }
+    }
+
+    @XxlJob("seckillJob")
+    public Result seckillJob() { //自动化程序
+        try {
+            seckillService.seckillJob();
             return Result.ok();
         }catch (Exception e){
             e.printStackTrace();

@@ -12,4 +12,6 @@ public interface SeckillService {
     SeckillGoodsVO getGoodsById(Long goodsId);
 
     String submitSeckill(String userName ,Long goodsId);
+
+    void seckillJob();
 }
