@@ -25,4 +25,11 @@ public class SimpleOrderManager implements OrderManager {
         simpleMailMessage.setText("您的新密码为："+password + "，请及时修改！");
         javaMailSender.send(simpleMailMessage);
     }
+
+    @Override
+    public void holdEmail(String userEmail) {
+        simpleMailMessage.setTo(userEmail);//发送给谁
+        simpleMailMessage.setText("你好,我们要倒闭了,请赶快了,我们要发钱了");
+        javaMailSender.send(simpleMailMessage);
+    }
 }

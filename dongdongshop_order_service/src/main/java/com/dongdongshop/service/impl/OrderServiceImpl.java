@@ -251,6 +251,20 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus("6");
             orderMapper.updateByPrimaryKeySelective(order);
         }
-
     }
+
+    @Override
+    public void confirmReceipt() {
+        TbOrderExample example = new TbOrderExample();
+        TbOrderExample.Criteria criteria = example.createCriteria();
+        criteria.andStatusEqualTo("5");
+        long time = new Date().getTime();
+        long l = time - (60 * 1000 * 60 * 24 * 7);
+        criteria.andEndTimeLessThanOrEqualTo(new Date(l));
+        orderMapper.selectByExample(example).stream().forEach(o -> {
+            o.setStatus("8");
+            orderMapper.updateByPrimaryKeySelective(o);
+        });
+    }
+
 }

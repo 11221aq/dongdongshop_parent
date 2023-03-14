@@ -6,6 +6,7 @@ import com.dongdongshop.em.ResultEnum;
 import com.dongdongshop.model.TbUser;
 import com.dongdongshop.service.UserService;
 import com.dongdongshop.vo.UserLonginVO;
+import com.xxl.job.core.handler.annotation.XxlJob;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,6 +42,14 @@ public class UserController {
         }
     }
 
+    @XxlJob("RetainCustomers")
+    public void retainCustomers(){
+        try {
+            userService.retainCustomers();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 
 }

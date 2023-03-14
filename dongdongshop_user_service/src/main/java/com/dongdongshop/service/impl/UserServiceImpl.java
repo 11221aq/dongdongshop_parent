@@ -1,5 +1,6 @@
 package com.dongdongshop.service.impl;
 
+import cn.hutool.http.HttpUtil;
 import com.dongdongshop.data.UserVo;
 import com.dongdongshop.mapper.TbUserMapper;
 import com.dongdongshop.model.TbUser;
@@ -13,8 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -55,5 +55,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(TbUser user) {
         userMapper.updateByPrimaryKeySelective(user);
+    }
+
+    @Override
+    public void retainCustomers() {
+        TbUserExample example = new TbUserExample();
+        TbUserExample.Criteria criteria = example.createCriteria();
+        Date date = new Date();//获取当前时间
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, -1);
+        criteria.andCreatedLessThan(new Date(calendar.getTimeInMillis()));
+        Calendar ca = Calendar.getInstance();
+        ca.setTime(date);
+        ca.add(Calendar.DAY_OF_YEAR, -7);
+        criteria.andLastLoginTimeLessThanOrEqualTo(new Date(ca.getTimeInMillis()));
+        userMapper.selectByExample(example).stream().forEach(user -> {
+            Map<String,Object> map = new HashMap<String,Object>();
+            map.put("userEmail",user.getEmail());
+            HttpUtil.post("http://127.0.0.1:8094/email/holdEmail", map);
+        });
     }
 }

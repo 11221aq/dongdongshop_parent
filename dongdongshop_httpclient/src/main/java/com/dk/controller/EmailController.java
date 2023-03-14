@@ -25,4 +25,13 @@ public class EmailController {
         }
     }
 
+    @PostMapping("holdEmail")
+    public void holdEmail(String userEmail){
+        try {
+            orderManager.holdEmail(userEmail);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 }

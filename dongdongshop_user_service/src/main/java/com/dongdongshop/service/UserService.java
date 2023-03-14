@@ -11,4 +11,6 @@ public interface UserService {
     TbUser getUserByName(String username);
 
     void updateUser(TbUser user);
+
+    void retainCustomers();
 }

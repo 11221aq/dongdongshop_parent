@@ -5,6 +5,7 @@ import com.dongdongshop.em.ResultEnum;
 import com.dongdongshop.service.OrderService;
 import com.dongdongshop.vo.AlipayTradeVO;
 import com.dongdongshop.vo.OrderVO;
+import com.xxl.job.core.handler.annotation.XxlJob;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,6 +55,17 @@ public class OrderController {
     public Result getOrderById(@RequestParam Long id){
         try {
             orderService.getOrderById(id);
+            return Result.ok();
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e);
+        }
+    }
+
+    @XxlJob("confirmReceipt")
+    public Result confirmReceipt(){
+        try {
+            orderService.confirmReceipt();
             return Result.ok();
         }catch (Exception e){
             e.printStackTrace();

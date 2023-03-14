@@ -14,4 +14,6 @@ public interface OrderService {
     List<OrderVO> getOrderByUserId(String zhuqifa,String status);
 
     void getOrderById(Long id);
+
+    void confirmReceipt();
 }
