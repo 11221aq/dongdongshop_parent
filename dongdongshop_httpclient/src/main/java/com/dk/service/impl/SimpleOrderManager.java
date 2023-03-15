@@ -29,7 +29,7 @@ public class SimpleOrderManager implements OrderManager {
     @Override
     public void holdEmail(String userEmail) {
         simpleMailMessage.setTo(userEmail);//发送给谁
-        simpleMailMessage.setText("你好,我们要倒闭了,请赶快了,我们要发钱了");
+        simpleMailMessage.setText("你好,我们要倒闭了,请赶快来,我们要发钱了");
         javaMailSender.send(simpleMailMessage);
     }
 }
