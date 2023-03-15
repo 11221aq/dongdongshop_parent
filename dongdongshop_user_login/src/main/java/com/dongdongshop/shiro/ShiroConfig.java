@@ -23,10 +23,11 @@ public class ShiroConfig {
         Map<String, String> map = new LinkedHashMap<>();
         //先放过登录
         map.put("/userLogin","anon");
+        map.put("/userWeibo/toLogin","anon");
+        map.put("/userWeibo/callback","anon");
+        map.put("/toLogin","anon");
         //设置退出登录
         map.put("/logout","logout");
-        //拦截所有
-        map.put("/**","authc");
         bean.setFilterChainDefinitionMap(map);
         return bean;
     }

@@ -31,6 +31,6 @@ public class LoginRealm extends AuthorizingRealm {
         if(user == null){
             return  null;
         }
-        return new SimpleAuthenticationInfo(user,user.getPassword(), ByteSource.Util.bytes(user.getSalt()),getName());
+        return new SimpleAuthenticationInfo(user,user.getPassword(), ByteSource.Util.bytes(user.getSalt()),user.getUsername());
     }
 }

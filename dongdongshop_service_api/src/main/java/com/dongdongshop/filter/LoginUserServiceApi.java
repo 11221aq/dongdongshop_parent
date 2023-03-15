@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "dongdongshop-user-service")
 public interface LoginUserServiceApi {
+
     @PostMapping("/user/getUserByName")
     Result<LoginUserDTO> getUserByName(@RequestParam String username);
 

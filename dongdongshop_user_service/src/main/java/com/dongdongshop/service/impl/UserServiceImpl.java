@@ -76,4 +76,18 @@ public class UserServiceImpl implements UserService {
             HttpUtil.post("http://127.0.0.1:8094/email/holdEmail", map);
         });
     }
+
+
+    public void weiboLogin(String username,String pass) {
+        TbUser user = new TbUser();
+        user.setUsername(username);
+        user.setPassword(pass);
+        String salt = ShiroUtils.generateSalt(6);
+        String password = ShiroUtils.encryptPassword("MD5", user.getPassword(), salt, 10);
+        user.setPassword(password);
+        user.setSalt(salt);
+        user.setUpdated(new Date());
+        userMapper.insertSelective(user);
+    }
+
 }

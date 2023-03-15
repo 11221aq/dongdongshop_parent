@@ -73,9 +73,9 @@ public class OrderServiceImpl implements OrderService {
     public AlipayTradeVO submitOrder(String zhuqifa, Long addressId, String payType) {
         //根据用户的信息 从购物车系统获取购物车数据
         Result<List<CartDTO>> result = cartServiceApi.getCart(zhuqifa);
-        if(Objects.equals(result.getCode(), 10000)){
-            throw new RuntimeException("购物车为空");
-        }
+//        if(Objects.equals(result.getCode(), 10000)){
+//            throw new RuntimeException("购物车为空");
+//        }
         List<CartDTO> cartDTOList = result.getData();
         //获取当前登录的用户
         Claims claims = jwtUtil.parseJwt(zhuqifa);

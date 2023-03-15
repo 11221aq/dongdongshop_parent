@@ -16,3 +16,4 @@ spring:
         file-extension: yml #指定yml文件格式
         namespace: dongdongshop
         group: DONGDONG
+

@@ -51,5 +51,14 @@ public class UserController {
         }
     }
 
+    @PostMapping("weiboLogin")
+    public void weiboLogin(String username,String password){
+        try {
+            userService.weiboLogin(username,password);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
 
 }
