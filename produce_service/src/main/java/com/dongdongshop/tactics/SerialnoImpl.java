@@ -41,11 +41,11 @@ public class SerialnoImpl implements CodeStrategyHandler {
         } else if(Objects.equals(partVO.getCycleMethod(), "HOUR")){//按照时循环
             long time = partVO.getUpdateTime().getTime();//修改毫秒值
             long dateTime = date.getTime();//当前毫秒值
-            l = (dateTime - time) / 1000 * 60 * 60;
+            l = (dateTime - time) / (1000 * 60 * 60);
         } else if(Objects.equals(partVO.getCycleMethod(), "MINITE")){//按照分循环
             long time = partVO.getUpdateTime().getTime();//修改毫秒值
             long dateTime = date.getTime();//当前毫秒值
-            l = (dateTime - time) / 1000 * 60;
+            l = (dateTime - time) / (1000 * 60);
         }
         if(l > 1){
             updateNowTime(partVO);//改为默认数
@@ -74,7 +74,8 @@ public class SerialnoImpl implements CodeStrategyHandler {
     private void updateNowTime(CodePartVO partVO) {
         CodePartVO vo = new CodePartVO();
         vo.setPartId(partVO.getPartId());
-        partVO.setSeriaNowNo(partVO.getSeriaStartNo() - partVO.getSeriaStep());
+        vo.setSeriaNowNo(partVO.getSeriaStartNo() - partVO.getSeriaStep());
+        vo.setUpdateTime(new Date());
         partService.updateCodePart(vo);
     }
 }
