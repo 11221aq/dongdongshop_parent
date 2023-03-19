@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongdongshop.mapper.UnitMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongdongshop.model.Unit">
+            <id property="unitCode" column="unit_code" jdbcType="VARCHAR"/>
+            <result property="unitName" column="unit_name" jdbcType="VARCHAR"/>
+            <result property="unitMain" column="unit_main" jdbcType="INTEGER"/>
+            <result property="unitStart" column="unit_start" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        unit_code,unit_name,unit_main,
+        unit_start
+    </sql>
+</mapper>

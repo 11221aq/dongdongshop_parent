@@ -28,6 +28,7 @@
         <module>dongdongshop_seckill_service</module>
         <module>dongdongshop_search_service</module>
         <module>dongdongshop_httpclient</module>
+        <module>produce_service</module>
     </modules>
 
 
