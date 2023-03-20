@@ -6,6 +6,7 @@ import com.dongdongshop.data.UserVo;
 import com.dongdongshop.em.ResultEnum;
 import com.dongdongshop.service.ProduceService;
 import com.dongdongshop.vo.ProduceVO;
+import com.dongdongshop.vo.ProductVO;
 import io.jsonwebtoken.Claims;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -74,5 +75,20 @@ public class ProduceController {
             return Result.result(ResultEnum.ERROR).setData(e.getMessage());
         }
     }
+
+
+
+
+    @PostMapping("getProListByPid")
+    public Result getProListByPid(@RequestParam Long pid) {
+        try {
+            List<ProductVO> list = produceService.getProListByPid(pid);
+            return Result.ok().setData(list);
+        }catch (Exception e) {
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e.getMessage());
+        }
+    }
+
 
 }

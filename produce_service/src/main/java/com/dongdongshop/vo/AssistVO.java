@@ -11,6 +11,8 @@ public class AssistVO implements Serializable {
 
     private Integer asort;
 
+    private String aurl;
+
     private String aexplain;
 
     private String aequipment;

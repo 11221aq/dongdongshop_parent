@@ -2,35 +2,35 @@ package com.dongdongshop.controller;
 
 import com.dongdongshop.data.Result;
 import com.dongdongshop.em.ResultEnum;
-import com.dongdongshop.service.AssistService;
-import com.dongdongshop.vo.AssistVO;
+import com.dongdongshop.service.TechnologyService;
+import com.dongdongshop.vo.TechnologyVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("assist")
-public class AssistController {
+@RequestMapping("technology")
+public class TechnologyController {
 
     @Autowired
-    private AssistService service;
+    private TechnologyService service;
 
-    @PostMapping("getAssistList")
-    public Result getAssistList(@RequestParam String pid){
+    @PostMapping("getTechnologyList")
+    public Result getTechnologyList(@RequestBody TechnologyVO vo){
         try {
-           List<AssistVO> voList =  service.getAssistList(pid);
-           return Result.ok().setData(voList);
+           List<TechnologyVO> list = service.getTechnologyList(vo);
+            return Result.ok().setData(list);
         }catch (Exception e){
             e.printStackTrace();
             return Result.result(ResultEnum.ERROR).setData(e.getMessage());
         }
     }
 
-    @PostMapping("addAssist")
-    public Result addAssist(@RequestBody AssistVO assistVO){
+    @PostMapping("addTechnology")
+    public Result addTechnology(@RequestBody TechnologyVO vo){
         try {
-            service.addAssist(assistVO);
+            service.addTechnology(vo);
             return Result.ok();
         }catch (Exception e){
             e.printStackTrace();
@@ -38,10 +38,10 @@ public class AssistController {
         }
     }
 
-    @PostMapping("getAssistById")
-    public Result getAssistById(@RequestParam Integer aid){
+    @PostMapping("getTechnicalById")
+    public Result getTechnicalById(@RequestParam Long tid){
         try {
-            AssistVO vo =  service.getAssistById(aid);
+            TechnologyVO vo = service.getTechnicalById(tid);
             return Result.ok().setData(vo);
         }catch (Exception e){
             e.printStackTrace();
@@ -49,10 +49,10 @@ public class AssistController {
         }
     }
 
-    @PostMapping("updateAssist")
-    public Result updateAssist(@RequestBody AssistVO assistVO){
+    @PostMapping("updateTechnology")
+    public Result updateTechnology(@RequestBody TechnologyVO vo){
         try {
-            service.updateAssist(assistVO);
+            service.updateTechnology(vo);
             return Result.ok();
         }catch (Exception e){
             e.printStackTrace();
@@ -60,10 +60,12 @@ public class AssistController {
         }
     }
 
-    @PostMapping("deleteById")
-    public Result deleteById(@RequestParam Integer aid){
+    //TODO:删除时把关联的底部表删除
+
+    @PostMapping("deleteTechnical")
+    public Result deleteTechnical(@RequestParam Long tid){
         try {
-            service.deleteById(aid);
+            service.deleteTechnical(tid);
             return Result.ok();
         }catch (Exception e){
             e.printStackTrace();

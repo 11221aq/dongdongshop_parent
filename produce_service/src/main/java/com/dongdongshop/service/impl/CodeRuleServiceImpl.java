@@ -3,11 +3,14 @@ package com.dongdongshop.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dongdongshop.model.CodeRule;
+import com.dongdongshop.service.CodePartService;
 import com.dongdongshop.service.CodeRuleService;
 import com.dongdongshop.mapper.CodeRuleMapper;
 import com.dongdongshop.vo.CodeRuleVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -25,6 +28,9 @@ public class CodeRuleServiceImpl extends ServiceImpl<CodeRuleMapper, CodeRule>
 
     @Resource
     private CodeRuleMapper mapper;
+
+    @Autowired
+    private CodePartService service;
 
     @Override
     public List<CodeRuleVO> getCodeRuleList(CodeRuleVO codeRuleVO) {
@@ -65,8 +71,10 @@ public class CodeRuleServiceImpl extends ServiceImpl<CodeRuleMapper, CodeRule>
     }
 
     @Override
+    @Transactional
     public void deleteCudeRule(Long ruleId) {
         mapper.deleteById(ruleId);
+        service.deleteByRuleId(ruleId);
     }
 }
 

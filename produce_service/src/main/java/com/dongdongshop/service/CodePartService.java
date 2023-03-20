@@ -22,4 +22,6 @@ public interface CodePartService extends IService<CodePart> {
     void updateCodePart(CodePartVO vo);
 
     void deleteCodePartById(Long partId);
+
+    void deleteByRuleId(Long ruleId);
 }

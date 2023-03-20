@@ -1,36 +1,38 @@
 package com.dongdongshop.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dongdongshop.data.Result;
 import com.dongdongshop.em.ResultEnum;
-import com.dongdongshop.service.OperationService;
-import com.dongdongshop.util.PageParms;
-import com.dongdongshop.vo.OperationVO;
+import com.dongdongshop.service.ProcessService;
+import com.dongdongshop.vo.ProcessVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestController
-@RequestMapping("operation")
-public class OperationController {
+@RequestMapping("process")
+public class ProcessController {
 
     @Autowired
-    private OperationService service;
+    private ProcessService service;
 
-    @PostMapping("getOperationList")
-    public Result getOperationList(@RequestBody PageParms<OperationVO> parms) {
+    @PostMapping("getProcessList")
+    public Result getProcessList(@RequestParam Long tid) {
         try {
-            Page<OperationVO> page = service.getOperationList(parms);
-            return Result.ok().setData(page);
+            List<ProcessVO> collect = service.getProcessList(tid);
+            return Result.ok().setData(collect);
         }catch (Exception e) {
             e.printStackTrace();
             return Result.result(ResultEnum.ERROR).setData(e.getMessage());
         }
     }
 
-    @PostMapping("addOperation")
-    public Result addOperation(@RequestBody OperationVO vo) {
+    @PostMapping("addProcess")
+    public Result addProcess(@RequestBody ProcessVO vo){
         try {
-            service.addOperation(vo);
+            service.addProcess(vo);
             return Result.ok();
         }catch (Exception e) {
             e.printStackTrace();
@@ -38,21 +40,21 @@ public class OperationController {
         }
     }
 
-    @PostMapping("getOperationById")
-    public Result getOperationById(@RequestParam String oid){
+    @PostMapping("getPrcessById")
+    public Result getPrcessById(@RequestParam Long pid){
         try {
-            OperationVO page = service.getOperationById(oid);
-            return Result.ok().setData(page);
-        }catch (Exception e){
+            ProcessVO collect = service.getPrcessById(pid);
+            return Result.ok().setData(collect);
+        }catch (Exception e) {
             e.printStackTrace();
             return Result.result(ResultEnum.ERROR).setData(e.getMessage());
         }
     }
 
-    @PostMapping("updateOperation")
-    public Result updateOperation(@RequestBody OperationVO vo) {
+    @PostMapping("updateProcess")
+    public Result updateProcess(@RequestBody ProcessVO vo){
         try {
-            service.updateOperation(vo);
+            service.updateProcess(vo);
             return Result.ok();
         }catch (Exception e) {
             e.printStackTrace();
@@ -60,10 +62,10 @@ public class OperationController {
         }
     }
 
-    @PostMapping("deleteOperation")
-    public Result deleteOperation(@RequestParam String oid){
+    @PostMapping("deleteProcess")
+    public Result deleteProcess(@RequestParam Long pid){
         try {
-            service.deleteOperation(oid);
+            service.deleteProcess(pid);
             return Result.ok();
         }catch (Exception e) {
             e.printStackTrace();

@@ -6,8 +6,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dongdongshop.model. Produce;
 import com.dongdongshop.service. ProduceService;
 import com.dongdongshop.mapper. ProduceMapper;
+import com.dongdongshop.service.TecctService;
+import com.dongdongshop.vo.ProcessVO;
 import com.dongdongshop.vo.ProduceVO;
+import com.dongdongshop.vo.ProductVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.*;
@@ -23,6 +27,9 @@ public class  ProduceServiceImpl extends ServiceImpl< ProduceMapper,  Produce> i
 
     @Resource
     private ProduceMapper produceMapper;
+
+    @Autowired
+    private TecctService service;
 
     @Override
     public List<ProduceVO> getProduceList(ProduceVO vo) {
@@ -94,6 +101,17 @@ public class  ProduceServiceImpl extends ServiceImpl< ProduceMapper,  Produce> i
         }
     }
 
+
+    @Override
+    public List<ProductVO> getProListByPid(Long pid) {
+        List<Long> tecctList = service.getTecctList(pid);
+        List<ProductVO> collect = produceMapper.selectBatchIds(tecctList).stream().map(p -> {
+            ProductVO vo = new ProductVO();
+            BeanUtils.copyProperties(p, vo);
+            return vo;
+        }).collect(Collectors.toList());
+        return collect;
+    }
 }
 
 

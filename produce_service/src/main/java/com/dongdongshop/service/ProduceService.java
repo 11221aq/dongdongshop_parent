@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dongdongshop.model. Produce;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.dongdongshop.vo.ProduceVO;
+import com.dongdongshop.vo.ProductVO;
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface  ProduceService extends IService< Produce> {
     void updateProduce(ProduceVO vo);
 
     void deleteProduce(String pid);
+
+    List<ProductVO> getProListByPid(Long pid);
 }

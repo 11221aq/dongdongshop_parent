@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongdongshop.mapper.ProcessMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongdongshop.model.Process">
+            <id property="pid" column="pid" jdbcType="BIGINT"/>
+            <result property="sort" column="sort" jdbcType="INTEGER"/>
+            <result property="operation" column="operation" jdbcType="VARCHAR"/>
+            <result property="relation" column="relation" jdbcType="INTEGER"/>
+            <result property="color" column="color" jdbcType="VARCHAR"/>
+            <result property="hinge" column="hinge" jdbcType="INTEGER"/>
+            <result property="prepare" column="prepare" jdbcType="INTEGER"/>
+            <result property="wait" column="wait" jdbcType="INTEGER"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        pid,sort,operation,
+        relation,color,hinge,
+        prepare,wait,remarks
+    </sql>
+</mapper>

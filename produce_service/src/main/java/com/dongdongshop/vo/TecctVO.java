@@ -1,0 +1,36 @@
+package com.dongdongshop.vo;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
+import java.io.Serializable;
+
+/**
+ * 工艺物料产品中间表
+ * @TableName tecct
+ */
+@TableName(value ="tecct")
+@Data
+public class TecctVO implements Serializable {
+    /**
+     * 
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
+
+    /**
+     * 工艺id
+     */
+    private Long pid;
+
+    /**
+     * 物料产品id
+     */
+    private String productid;
+
+    @TableField(exist = false)
+    private static final long serialVersionUID = 1L;
+}

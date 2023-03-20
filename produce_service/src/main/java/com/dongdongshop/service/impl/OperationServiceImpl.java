@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dongdongshop.model.Operation;
+import com.dongdongshop.service.AssistService;
 import com.dongdongshop.service.OperationService;
 import com.dongdongshop.mapper.OperationMapper;
 import com.dongdongshop.util.PageParms;
@@ -25,11 +26,15 @@ public class OperationServiceImpl extends ServiceImpl<OperationMapper, Operation
     @Resource
     private OperationMapper mapper;
 
+    @Resource
+    private AssistService service;
+
     @Override
     public Page<OperationVO> getOperationList(PageParms<OperationVO> parms) {
         OperationVO operationVO = parms.getParms();
         Page<Operation> page = new Page<Operation>(parms.getPageNum(),parms.getPageSize());
         LambdaQueryWrapper<Operation> wrapper = new LambdaQueryWrapper();
+        wrapper.eq(Operation::getStatus,0);
         wrapper.like(operationVO.getOid() != null,Operation::getOid,operationVO.getOid());
         wrapper.like(operationVO.getOname() != null,Operation::getOname,operationVO.getOname());
         wrapper.like(operationVO.getStatus() != null,Operation::getStatus,operationVO.getStatus());
@@ -49,6 +54,22 @@ public class OperationServiceImpl extends ServiceImpl<OperationMapper, Operation
     @Override
     public void deleteOperation(String oid) {
         mapper.deleteById(oid);
+        service.deleteByOid(oid);
+    }
+
+    @Override
+    public OperationVO getOperationById(String oid) {
+        Operation operation = mapper.selectById(oid);
+        OperationVO vo = new OperationVO();
+        BeanUtils.copyProperties(operation,vo);
+        return vo;
+    }
+
+    @Override
+    public void updateOperation(OperationVO vo) {
+        Operation operation = new Operation();
+        BeanUtils.copyProperties(vo,operation);
+        mapper.updateById(operation);
     }
 }
 

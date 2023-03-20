@@ -8,32 +8,22 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 工序表
- * @TableName operation
+ * 工序关系
+ * @TableName relation
  */
-@TableName(value ="operation")
+@TableName(value ="relation")
 @Data
-public class Operation implements Serializable {
+public class Relation implements Serializable {
     /**
-     * 主键
+     * id
      */
-    @TableId
-    private String oid;
+    @TableId(type = IdType.AUTO)
+    private Integer rid;
 
     /**
-     * 名字
+     * rname
      */
-    private String oname;
-
-    /**
-     * 是否启用 0 启用 1 禁用
-     */
-    private Integer status;
-
-    /**
-     * 备注
-     */
-    private String descc;
+    private String rname;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

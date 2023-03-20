@@ -13,5 +13,5 @@ public class OperationVO implements Serializable {
 
     private Integer status;
 
-    private String desc;
+    private String descc;
 }

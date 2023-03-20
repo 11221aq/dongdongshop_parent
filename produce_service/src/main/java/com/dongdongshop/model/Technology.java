@@ -8,32 +8,43 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 工序表
- * @TableName operation
+ * 工艺表
+ * @TableName technology
  */
-@TableName(value ="operation")
+@TableName(value ="technology")
 @Data
-public class Operation implements Serializable {
+public class Technology implements Serializable {
     /**
-     * 主键
+     * id
      */
-    @TableId
-    private String oid;
+    @TableId(type = IdType.AUTO)
+    private Long tid;
 
     /**
-     * 名字
+     * 编码
      */
-    private String oname;
+    private String tcode;
 
     /**
-     * 是否启用 0 启用 1 禁用
+     * 名称
+     */
+    private String tname;
+
+    /**
+     * 启用    0启用    1不启用
      */
     private Integer status;
 
     /**
+     * 说明
+     */
+    @TableField(value = "`explain`")
+    private String explain;
+
+    /**
      * 备注
      */
-    private String descc;
+    private String remarks;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;

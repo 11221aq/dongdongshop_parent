@@ -75,6 +75,10 @@ public class CodePartServiceImpl extends ServiceImpl<CodePartMapper, CodePart>
         mapper.deleteById(partId);
     }
 
+    @Override
+    public void deleteByRuleId(Long ruleId) {
+        mapper.delete(new LambdaQueryWrapper<CodePart>().eq(CodePart::getRuleId,ruleId));
+    }
 }
 
 
