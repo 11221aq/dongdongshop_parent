@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongdongshop.mapper.SchedulingMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongdongshop.model.Scheduling">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="asscode" column="asscode" jdbcType="VARCHAR"/>
+            <result property="assname" column="assname" jdbcType="VARCHAR"/>
+            <result property="workcode" column="workcode" jdbcType="VARCHAR"/>
+            <result property="workname" column="workname" jdbcType="VARCHAR"/>
+            <result property="schedulingnum" column="schedulingnum" jdbcType="BIGINT"/>
+            <result property="productednum" column="productednum" jdbcType="BIGINT"/>
+            <result property="starttime" column="starttime" jdbcType="TIMESTAMP"/>
+            <result property="timnum" column="timnum" jdbcType="INTEGER"/>
+            <result property="endtime" column="endtime" jdbcType="TIMESTAMP"/>
+            <result property="color" column="color" jdbcType="VARCHAR"/>
+            <result property="pid" column="pid" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,asscode,assname,
+        workcode,workname,schedulingnum,
+        productednum,starttime,timnum,
+        endtime,color,pid
+    </sql>
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongdongshop.mapper.FarmMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongdongshop.model.Farm">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="fcode" column="fcode" jdbcType="VARCHAR"/>
+            <result property="fname" column="fname" jdbcType="VARCHAR"/>
+            <result property="area" column="area" jdbcType="INTEGER"/>
+            <result property="person" column="person" jdbcType="VARCHAR"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,fcode,fname,
+        area,person,remarks
+    </sql>
+</mapper>

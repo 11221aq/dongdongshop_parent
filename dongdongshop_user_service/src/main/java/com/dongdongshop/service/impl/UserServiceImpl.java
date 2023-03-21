@@ -78,7 +78,8 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    public void weiboLogin(String username,String pass) {
+    @Override
+    public void weiboLogin(String username, String pass) {
         TbUser user = new TbUser();
         user.setUsername(username);
         user.setPassword(pass);

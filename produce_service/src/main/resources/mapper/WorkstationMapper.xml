@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongdongshop.mapper.WorkstationMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongdongshop.model.Workstation">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="workcode" column="workcode" jdbcType="VARCHAR"/>
+            <result property="workname" column="workname" jdbcType="VARCHAR"/>
+            <result property="workplace" column="workplace" jdbcType="VARCHAR"/>
+            <result property="farmid" column="farmid" jdbcType="BIGINT"/>
+            <result property="oid" column="oid" jdbcType="VARCHAR"/>
+            <result property="status" column="status" jdbcType="INTEGER"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,workcode,workname,
+        workplace,farmid,oid,
+        status,remarks
+    </sql>
+</mapper>

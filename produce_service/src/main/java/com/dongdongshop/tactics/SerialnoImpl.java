@@ -25,7 +25,7 @@ public class SerialnoImpl implements CodeStrategyHandler {
 
         Date date = new Date();
 
-        long l = 0l;
+        long l = 0L;
         if(Objects.equals(partVO.getCycleMethod(), "YEAR")){//按照年循环
 
             l = DateUtil.betweenYear(partVO.getUpdateTime(), date, true);

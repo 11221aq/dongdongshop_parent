@@ -26,7 +26,7 @@ public class MyTest {
 
     @Test
     public void test() {
-        Long ruleId = 233l;
+        Long ruleId = 233L;
         CodeRuleVO ruleVO = ruleService.getCodeRuleById(ruleId);
         System.err.println("对象信息为 " + ruleVO);
         CodePartVO codePart = new CodePartVO();

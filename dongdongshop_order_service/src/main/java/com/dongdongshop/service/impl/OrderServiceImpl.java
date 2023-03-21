@@ -258,7 +258,7 @@ public class OrderServiceImpl implements OrderService {
         TbOrderExample example = new TbOrderExample();
         TbOrderExample.Criteria criteria = example.createCriteria();
         criteria.andStatusEqualTo("5");
-        long time = new Date().getTime();
+        long time = System.currentTimeMillis(); //
         long l = time - (60 * 1000 * 60 * 24 * 7);
         criteria.andEndTimeLessThanOrEqualTo(new Date(l));
         orderMapper.selectByExample(example).stream().forEach(o -> {

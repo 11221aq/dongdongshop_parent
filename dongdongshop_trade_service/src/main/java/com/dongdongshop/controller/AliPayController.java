@@ -36,7 +36,7 @@ public class AliPayController {
 
     @PostMapping("pagePay")
     @ResponseBody
-    public String aliPay(@RequestParam String out_trade_no,@RequestParam String total_amount,@RequestParam String subject) throws AlipayApiException {
+    public String aliPay(@RequestParam String out_trade_no, @RequestParam String total_amount, @RequestParam String subject) throws AlipayApiException {
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();
         request.setNotifyUrl(apiUrl + "/aliPayCallBack/notifyUrl");
         request.setReturnUrl(apiUrl + "/aliPayCallBack/returnUrl");
@@ -47,7 +47,7 @@ public class AliPayController {
         bizContent.put("product_code", "FAST_INSTANT_TRADE_PAY");
         request.setBizContent(bizContent.toString());
         AlipayTradePagePayResponse response = alipayClient.pageExecute(request);
-        if(response.isSuccess()){
+        if (response.isSuccess()) {
             System.out.println("调用成功");
         } else {
             System.out.println("调用失败");
@@ -57,7 +57,7 @@ public class AliPayController {
 
     @PostMapping("queryTrade")
     @ResponseBody
-    public Result queryTrade(@RequestParam String out_trade_no){
+    public Result queryTrade(@RequestParam String out_trade_no) {
         AlipayTradeQueryRequest request = new AlipayTradeQueryRequest();
         JSONObject bizContent = new JSONObject();
         bizContent.put("out_trade_no", out_trade_no);
@@ -69,7 +69,7 @@ public class AliPayController {
             e.printStackTrace();
             return Result.error();
         }
-        if(response.isSuccess()){
+        if (response.isSuccess()) {
             System.out.println("调用成功");
             String body = response.getBody();
             JSONObject object = JSONObject.parseObject(body);
@@ -82,7 +82,7 @@ public class AliPayController {
 
     @PostMapping("tradeRefund")
     @ResponseBody
-    public Result tradeRefund(@RequestParam String trade_no,@RequestParam String refund_amount,@RequestParam String out_request_no){
+    public Result tradeRefund(@RequestParam String trade_no, @RequestParam String refund_amount, @RequestParam String out_request_no) {
         AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
         JSONObject bizContent = new JSONObject();
         bizContent.put("trade_no", trade_no);//支付宝交易号
@@ -96,15 +96,15 @@ public class AliPayController {
             e.printStackTrace();
             return Result.result(ResultEnum.REFUND_ERROR);
         }
-        if(response.isSuccess()){
+        if (response.isSuccess()) {
             System.out.println("调用成功");//调用成功不代表退款成功
             String body = response.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);
-                                                                                                                                                    AlipayTradeRefundVO refundVO = JSONObject.parseObject(JSONObject.toJSONString(jsonObject.get("alipay_trade_refund_response")), AlipayTradeRefundVO.class);
-            if(!Objects.equals(refundVO.getFund_change(),"Y")){//不等
+            AlipayTradeRefundVO refundVO = JSONObject.parseObject(JSONObject.toJSONString(jsonObject.get("alipay_trade_refund_response")), AlipayTradeRefundVO.class);
+            if (!Objects.equals(refundVO.getFund_change(), "Y")) {//不等
                 //需要调用退款查询
                 AlipayQueryRefundVO refundQuery = refundQuery(trade_no, out_request_no);
-                if(!Objects.equals(refundQuery.getRefund_status(),"REFUND_SUCCESS")){
+                if (!Objects.equals(refundQuery.getRefund_status(), "REFUND_SUCCESS")) {
                     return Result.result(ResultEnum.REFUND_ERROR);
                 }
                 return Result.result(ResultEnum.REFUND_SUCCESS);
@@ -116,7 +116,7 @@ public class AliPayController {
         }
     }
 
-    private AlipayQueryRefundVO refundQuery(String trade_no, String out_request_no){
+    private AlipayQueryRefundVO refundQuery(String trade_no, String out_request_no) {
         AlipayTradeFastpayRefundQueryRequest request = new AlipayTradeFastpayRefundQueryRequest();
         JSONObject bizContent = new JSONObject();
         bizContent.put("trade_no", trade_no);
@@ -129,7 +129,7 @@ public class AliPayController {
             e.printStackTrace();
             return null;
         }
-        if(response.isSuccess()){
+        if (response.isSuccess()) {
             System.out.println("调用成功");
             String body = response.getBody();
             JSONObject jsonObject = JSONObject.parseObject(body);

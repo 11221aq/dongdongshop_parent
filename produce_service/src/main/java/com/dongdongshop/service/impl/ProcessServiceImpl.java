@@ -4,8 +4,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.dongdongshop.model.Process;
 import com.dongdongshop.service.ProcessService;
 import com.dongdongshop.mapper.ProcessMapper;
+import com.dongdongshop.service.ProduceService;
+import com.dongdongshop.service.TecctService;
 import com.dongdongshop.service.TecproService;
 import com.dongdongshop.vo.ProcessVO;
+import com.dongdongshop.vo.ProduceVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +32,15 @@ public class ProcessServiceImpl extends ServiceImpl<ProcessMapper, Process>
 
     @Resource
     private ProcessMapper mapper;
+
+    @Resource
+    private ProduceService produceService;
+
+    @Resource
+    private TecctService tecctService;
+
+    @Resource
+    private TecproService tecproService;
 
     @Override
     public List<ProcessVO> getProcessList(Long tid) {
@@ -71,6 +83,23 @@ public class ProcessServiceImpl extends ServiceImpl<ProcessMapper, Process>
         mapper.deleteById(pid);
         service.deleteByPid(pid);
     }
+
+    @Override
+    public List<ProcessVO> getProcessByProductId(String productId) {
+        //根据工单id 查询 物料产品id
+        ProduceVO produceVO = produceService.getProduceById(productId);
+        //根据 物料产品id 查询 工艺表物料产品表 获取 工艺id
+        Long tid = tecctService.getTecctId(produceVO.getProductOrder());//工艺ID
+        //根据工艺id 去查询工序
+        List<Long> processList = tecproService.getProcessList(tid); //工序id集合
+        List<ProcessVO> collect = mapper.selectBatchIds(processList).stream().map(p -> {
+            ProcessVO v = new ProcessVO();
+            BeanUtils.copyProperties(p, v);
+            return v;
+        }).collect(Collectors.toList());
+        return collect;
+    }
+
 }
 
 

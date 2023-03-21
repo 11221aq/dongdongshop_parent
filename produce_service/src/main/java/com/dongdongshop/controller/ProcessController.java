@@ -73,4 +73,18 @@ public class ProcessController {
         }
     }
 
+
+    @PostMapping("getProcessByProductId")
+    public Result getProcessByProductId(@RequestParam String productId){
+        try {
+            List<ProcessVO> collect = service.getProcessByProductId(productId); //当前 工单id 对应的 工序id集合
+            return Result.ok().setData(collect);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e.getMessage());
+        }
+    }
+
+
+
 }

@@ -39,7 +39,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type>
     private List<TypeVO> getListJson( List<TypeVO> types,Integer pid) {
         List<TypeVO> list = new ArrayList<TypeVO>();
         for (TypeVO type : types) {
-            if(pid == type.getPid()){
+            if(pid.equals(type.getPid())){
                 list.add(type);
                 type.setVoList(getListJson(types,type.getTid()));
             }

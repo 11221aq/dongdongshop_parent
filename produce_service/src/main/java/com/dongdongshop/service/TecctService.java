@@ -22,4 +22,7 @@ public interface TecctService extends IService<Tecct> {
     void deleteDate(String productid);
 
     void deleteTecct(Long tid);
+
+    //获取工艺id
+    Long getTecctId(String productOrder);
 }

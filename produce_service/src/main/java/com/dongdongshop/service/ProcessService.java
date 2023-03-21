@@ -22,4 +22,6 @@ public interface ProcessService extends IService<Process> {
     void updateProcess(ProcessVO vo);
 
     void deleteProcess(Long pid);
+
+    List<ProcessVO> getProcessByProductId(String productId);
 }

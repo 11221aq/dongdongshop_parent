@@ -70,7 +70,7 @@ public class SeckillServiceImpl implements SeckillService {
             throw new RuntimeException("商品不存在");
         }
         //先判断是否已经超过秒杀时间
-        if(goodsVO.getEndTime().getTime() < new Date().getTime()){
+        if(goodsVO.getEndTime().getTime() < System.currentTimeMillis()){
             throw new RuntimeException("秒杀已结束");
         }
         //判断是否还有库存

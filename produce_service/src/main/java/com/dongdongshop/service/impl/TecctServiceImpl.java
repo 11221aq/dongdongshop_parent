@@ -63,6 +63,12 @@ public class TecctServiceImpl extends ServiceImpl<TecctMapper, Tecct>
     public void deleteTecct(Long tid) {
         mapper.delete(new LambdaQueryWrapper<Tecct>().eq(Tecct::getPid,tid));
     }
+
+    @Override
+    public Long getTecctId(String productOrder) {
+        Tecct tecct = mapper.selectOne(new LambdaQueryWrapper<Tecct>().eq(Tecct::getProductid, productOrder));
+        return tecct.getPid();
+    }
 }
 
 

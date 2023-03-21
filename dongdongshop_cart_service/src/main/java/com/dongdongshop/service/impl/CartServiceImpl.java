@@ -99,6 +99,7 @@ public class CartServiceImpl implements CartService {
     }
 
 
+    @Override
     public List<CartVO> getRedisCartVO(String userId){
         List<CartVO> cartList = (List<CartVO>)redisTemplate.boundHashOps("cartList").get(userId);
         if(cartList == null){
