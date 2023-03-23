@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import com.dongdongshop.model.Scheduling;
 import lombok.Data;
 
 /**
@@ -48,5 +49,7 @@ public class ProduceVO implements Serializable {
     private String parentid;
 
     private List<ProduceVO> voList;
+
+    private List<Scheduling> schedulingList;
 
 }

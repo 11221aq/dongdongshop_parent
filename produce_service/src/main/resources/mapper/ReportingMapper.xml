@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dongdongshop.mapper.ReportingMapper">
+
+    <resultMap id="BaseResultMap" type="com.dongdongshop.model.Reporting">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="type" column="type" jdbcType="INTEGER"/>
+            <result property="workName" column="work_name" jdbcType="VARCHAR"/>
+            <result property="produceId" column="produce_id" jdbcType="VARCHAR"/>
+            <result property="schedulingId" column="scheduling_id" jdbcType="BIGINT"/>
+            <result property="productId" column="product_id" jdbcType="VARCHAR"/>
+            <result property="productName" column="product_name" jdbcType="VARCHAR"/>
+            <result property="unit" column="unit" jdbcType="VARCHAR"/>
+            <result property="spec" column="spec" jdbcType="VARCHAR"/>
+            <result property="qualifiedNum" column="qualified_num" jdbcType="BIGINT"/>
+            <result property="defectsNum" column="defects_num" jdbcType="BIGINT"/>
+            <result property="reporter" column="Reporter" jdbcType="VARCHAR"/>
+            <result property="retime" column="retime" jdbcType="TIMESTAMP"/>
+            <result property="reviewed" column="Reviewed" jdbcType="VARCHAR"/>
+            <result property="remarks" column="remarks" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,type,work_name,
+        produce_id,scheduling_id,product_id,
+        product_name,unit,spec,
+        qualified_num,defects_num,Reporter,
+        retime,Reviewed,remarks
+    </sql>
+</mapper>

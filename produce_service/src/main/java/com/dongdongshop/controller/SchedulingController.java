@@ -5,6 +5,7 @@ import com.dongdongshop.data.Result;
 import com.dongdongshop.em.ResultEnum;
 import com.dongdongshop.model.Scheduling;
 import com.dongdongshop.service.SchedulingService;
+import com.dongdongshop.vo.ProduceVO;
 import com.dongdongshop.vo.SchedulingVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,13 @@ public class SchedulingController {
     private SchedulingService service;
 
     @PostMapping("getSchedulingList")
-    public Result getSchedulingList(@RequestParam String pid,@RequestParam Long processid){
+    public Result getSchedulingList(@RequestBody SchedulingVO vo){
         try {
             List<SchedulingVO> collect = service.list(new LambdaQueryWrapper<Scheduling>()
-                    .eq(Scheduling::getPid, pid)
-                    .eq(Scheduling::getProcessid, processid)
+                    .eq(vo.getPid() != null,Scheduling::getPid, vo.getPid())
+                    .eq(vo.getProcessid() != null,Scheduling::getProcessid, vo.getProcessid())
+                    .eq(vo.getWorkcode() != null,Scheduling::getWorkcode, vo.getWorkcode())
+                    .eq(vo.getAsscode() != null,Scheduling::getAsscode, vo.getAsscode())
             ).stream().map(s -> {
                 SchedulingVO v = new SchedulingVO();
                 BeanUtils.copyProperties(s, v);
@@ -84,6 +87,15 @@ public class SchedulingController {
         }
     }
 
-
+    @PostMapping("getFigure")
+    public Result getFigure(){
+        try {
+            List<ProduceVO> figure = service.getFigure();
+            return Result.ok().setData(figure);
+        }catch (Exception e){
+            e.printStackTrace();
+            return Result.result(ResultEnum.ERROR).setData(e.getMessage());
+        }
+    }
 
 }

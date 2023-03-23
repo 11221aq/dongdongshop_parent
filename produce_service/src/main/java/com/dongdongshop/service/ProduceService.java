@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.dongdongshop.vo.ProduceVO;
 import com.dongdongshop.vo.ProductVO;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -26,4 +28,6 @@ public interface  ProduceService extends IService< Produce> {
     void deleteProduce(String pid);
 
     List<ProductVO> getProListByPid(Long pid);
+
+    List<ProduceVO> getList();
 }

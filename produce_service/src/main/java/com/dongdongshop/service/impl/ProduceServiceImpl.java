@@ -1,5 +1,8 @@
 package com.dongdongshop.service.impl;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -14,8 +17,14 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.System.out;
 
 /**
 * @author 29555
@@ -112,6 +121,17 @@ public class  ProduceServiceImpl extends ServiceImpl< ProduceMapper,  Produce> i
         }).collect(Collectors.toList());
         return collect;
     }
+
+    @Override
+    public List<ProduceVO> getList() {
+        List<ProduceVO> collect = produceMapper.selectList(null).stream().map(p -> {
+            ProduceVO produceVO = new ProduceVO();
+            BeanUtils.copyProperties(p, produceVO);
+            return produceVO;
+        }).collect(Collectors.toList());
+        return collect;
+    }
+
 }
 
 
